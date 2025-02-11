@@ -1,6 +1,6 @@
-import RealEstateFields from "./RealEstateFields/RealEstateFields";
-import CarFields from "./CarFields/CarFields";
-import ServiceFields from "./ServiceFields/ServiceFields";
+import RealEstateFields from "../RealEstateFields/RealEstateFields";
+import CarFields from "../CarFields/CarFields";
+import ServiceFields from "../ServiceFields/ServiceFields";
 
 const FormStep2 = ({ setFormStep, register, errors, category }) => {
   return (

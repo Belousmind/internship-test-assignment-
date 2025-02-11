@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import FormStep1 from "./FormStep1";
-import FormStep2 from "./FormStep2";
+import FormStep1 from "./FormStep1/FormStep1";
+import FormStep2 from "./FormStep2/FormStep2";
 
 import "./Form.css";
 

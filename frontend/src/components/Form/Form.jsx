@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./Form.css"
+import { Link, useLocation } from "react-router-dom";
 
 const FormPage = () => {
 
@@ -8,8 +9,14 @@ const FormPage = () => {
 
   console.log(categoryName)
 
+  const location = useLocation();
+  const PageId = location.state?.id; 
+
+  console.log(PageId)
+
   return (
     <>
+    <Link to="/list">Вернуться к списку объявлений</Link>  
     <form>
       {formStep === 1 && (
         <>

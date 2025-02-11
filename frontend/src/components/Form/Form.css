@@ -8,6 +8,8 @@ label {
   margin-bottom: 10px;
 }
 
-form {
-  gap: 20px;
+input,
+textarea,
+select {
+  margin-bottom: 30px;
 }

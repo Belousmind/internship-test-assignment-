@@ -8,7 +8,6 @@ const App = () => {
 
 
   return (
-
     <>
       <Router>
         <Routes>
@@ -19,9 +18,6 @@ const App = () => {
         </Routes>
       </Router>
     </>
-
-  
-  
   )
 }
 

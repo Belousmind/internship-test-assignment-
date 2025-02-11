@@ -16,7 +16,11 @@ const FormPage = () => {
 
   return (
     <>
-    <Link to="/list">Вернуться к списку объявлений</Link>  
+    <Link to="/list">Вернуться к списку объявлений</Link>
+    <hr />
+    
+    {PageId ? <h2>Редактировать объявление (id: {PageId})</h2> : <h2>Создать объявление</h2>}
+
     <form>
       {formStep === 1 && (
         <>

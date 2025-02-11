@@ -10,8 +10,7 @@ const List = () => {
   <h1>Список объявлений</h1>
     <Link to="/form">Создать объявление</Link>
     <hr />
-    <ListItem PageId={1}/>
-    <ListItem PageId={2}/>
+    <span>Нет объявлений</span>
   </>  
 )};
 

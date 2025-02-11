@@ -15,11 +15,11 @@ const ServiceFields = ({ register, errors }) => {
       {errors.experience && <p style={{ color: "red" }}>{errors.experience.message}</p>}
 
       <label>Стоимость (₽)</label>
-      <input type="number" {...register("price", { required: "Введите цену" })} />
+      <input type="number" {...register("cost", { required: "Введите цену" })} />
       {errors.price && <p style={{ color: "red" }}>{errors.price.message}</p>}
 
       <label>График работы</label>
-      <input type="text" {...register("schedule")} />
+      <input type="text" {...register("workSchedule")} />
     </>
   );
 };

@@ -2,7 +2,7 @@ const CarFields = ({ register, errors }) => {
   return (
     <>
       <label>Марка</label>
-      <select {...register("carBrand", { required: "Выберите марку" })}>
+      <select {...register("brand", { required: "Выберите марку" })}>
         <option value="">Выберите</option>
         <option value="Toyota">Toyota</option>
         <option value="BMW">BMW</option>
@@ -11,15 +11,15 @@ const CarFields = ({ register, errors }) => {
       {errors.carBrand && <p style={{ color: "red" }}>{errors.carBrand.message}</p>}
 
       <label>Модель</label>
-      <input type="text" {...register("carModel", { required: "Введите модель" })} />
+      <input type="text" {...register("model", { required: "Введите модель" })} />
       {errors.carModel && <p style={{ color: "red" }}>{errors.carModel.message}</p>}
 
       <label>Год выпуска</label>
-      <input type="number" {...register("carYear", { required: "Введите год выпуска" })} />
+      <input type="number" {...register("year", { required: "Введите год выпуска" })} />
       {errors.carYear && <p style={{ color: "red" }}>{errors.carYear.message}</p>}
 
       <label>Пробег (км)</label>
-      <input type="number" {...register("carMileage")} />
+      <input type="number" {...register("mileage")} />
     </>
   );
 };

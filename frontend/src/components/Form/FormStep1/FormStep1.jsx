@@ -3,7 +3,7 @@ const FormStep1 = ({ setFormStep, register, watch, errors }) => {
   const name = watch("name");
   const description = watch("description");
   const location = watch("location");
-  const category = watch("category");
+  const type = watch("type");
 
   return (
     <>
@@ -25,18 +25,18 @@ const FormStep1 = ({ setFormStep, register, watch, errors }) => {
       <input type="file" {...register("photo")} />
 
       <label>Категория</label>
-      <select {...register("category", { required: "Выберите категорию" })}>
+      <select {...register("type", { required: "Выберите категорию" })}>
         <option value="">Выберите категорию</option>
-        <option value="RealEstate">Недвижимость</option>
-        <option value="Car">Авто</option>
-        <option value="Service">Услуги</option>
+        <option value="Недвижимость">Недвижимость</option>
+        <option value="Авто">Авто</option>
+        <option value="Услуги">Услуги</option>
       </select>
       {errors.category && <p style={{ color: "red" }}>{errors.category.message}</p>}
 
       <button
         type="button"
         onClick={() => setFormStep(2)}
-        disabled={!name || !description || !location || !category}
+        disabled={!name || !description || !location || !type}
       >
         Далее
       </button>

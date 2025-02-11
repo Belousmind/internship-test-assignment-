@@ -8,11 +8,11 @@ const ListItem = ({ item }) => {
       <p>{item.description}</p>
       <p><strong>Локация:</strong> {item.location}</p>
 
-      {item.type === "Недвижимость" && <RealEstate/>}
+      {item.type === "Недвижимость" && <RealEstate item={item}/>}
 
-      {item.type === "Авто" && <Car/>}
+      {item.type === "Авто" && <Car item={item}/>}
 
-      {item.type === "Услуги" && <Service/>}
+      {item.type === "Услуги" && <Service item={item}/>}
 
       <Link to={`/list/${item.id}`} className="open-btn">
         Открыть
@@ -23,7 +23,7 @@ const ListItem = ({ item }) => {
 
 export default ListItem;
 
-const RealEstate = () => {
+const RealEstate = ({item}) => {
   return (
   <>
     <p><strong>Тип:</strong> {item.propertyType}</p>
@@ -34,7 +34,7 @@ const RealEstate = () => {
   )
 }
 
-const Car = () => {
+const Car = ({item}) => {
   return (
   <>
     <p><strong>Марка:</strong> {item.brand}</p>
@@ -45,7 +45,7 @@ const Car = () => {
   )
 }
 
-const Service = () => {
+const Service = ({item}) => {
   return (
   <>
     <p><strong>Тип услуги:</strong> {item.serviceType}</p>

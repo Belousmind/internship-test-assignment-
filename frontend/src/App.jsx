@@ -1,12 +1,13 @@
 import './App.css'
+import FormPage from './components/Form/Form'
 
-function App() {
+const App = () => {
 
 
   return (
-    <>
-   
-    </>
+
+      <FormPage/>
+  
   )
 }
 

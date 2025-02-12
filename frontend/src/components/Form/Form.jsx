@@ -19,7 +19,6 @@ const FormPage = () => {
 
       navigate("/list");
     } catch (error) {
-      console.log(data)
       console.error("Ошибка при создании объявления:", error.response?.data || error.message);
     }
   };

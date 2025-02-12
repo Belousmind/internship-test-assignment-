@@ -2,13 +2,16 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import ListItem from '../ListItem/ListItem';
-import { Pagination } from "antd";
+import { Pagination, Input } from "antd";
+
+const { Search } = Input;
 
 const List = () => {
 
   const [items, setItems] = useState([]);
+  const [filteredItems, setFilteredItems] = useState([]); 
   const [loading, setLoading] = useState(true);
-
+  const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 5;
 
@@ -17,6 +20,7 @@ const List = () => {
       .then((res) => res.json())
       .then((data) => {
         setItems(data);
+        setFilteredItems(data);
         setLoading(false);
       })
       .catch((error) => {
@@ -25,9 +29,19 @@ const List = () => {
       });
   }, []);
 
+  const handleSearch = (value) => {
+    setSearchQuery(value.toLowerCase());
+    const filtered = items.filter((item) =>
+      item.name.toLowerCase().includes(value.toLowerCase())
+    );
+    setFilteredItems(filtered);
+    setCurrentPage(1);
+  };
+
+
   const indexOfLastItem = currentPage * pageSize;
   const indexOfFirstItem = indexOfLastItem - pageSize;
-  const currentItems = items.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = filteredItems.slice(indexOfFirstItem, indexOfLastItem);
   
   return (  
   <>
@@ -35,8 +49,17 @@ const List = () => {
     <Link to="/form">Создать объявление</Link>
     <hr />
 
+    <Search
+      placeholder="Поиск по названию..."
+      allowClear
+      enterButton="Поиск"
+      size="large"
+      onSearch={handleSearch}
+      style={{ width: 400, marginBottom: 20 }}
+    />
+
     {loading && <p>Загрузка...</p>}
-    {items.length === 0 && !loading ? <p>Объявления не найдены</p> : null}
+    {filteredItems.length === 0 && !loading ? <p>Объявления не найдены</p> : null}
 
     {currentItems.map((item) => (
       <ListItem key={item.id} item={item} />

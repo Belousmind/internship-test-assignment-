@@ -1,22 +1,40 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import FormStep1 from "./FormStep1/FormStep1";
 import FormStep2 from "./FormStep2/FormStep2";
 
 const FormPage = () => {
-  const [formStep, setFormStep] = useState(1);
-  const { register, handleSubmit, watch, formState: { errors } } = useForm();
-  const type = watch("type");
+
+  const location = useLocation();
   const navigate = useNavigate();
+  const editingItem = location.state?.item || null;
+
+
+  const [formStep, setFormStep] = useState(1);
+  const { register, handleSubmit, setValue, watch, formState: { errors } } = useForm();
+  const type = watch("type");
+ 
+  useEffect(() => {
+    if (editingItem) {
+      Object.keys(editingItem).forEach((key) => {
+        setValue(key, editingItem[key]);
+      });
+    }
+  }, [editingItem, setValue]);
 
   const onSubmit = async (data) => {
-    console.log(data)
     try {
-      const response = await axios.post("http://localhost:3000/items", data);
-      console.log("Объявление создано:", response.data);
-
+      if (editingItem) {
+      // Если редактируем, отправляем PUT-запрос
+      await axios.put(`http://localhost:3000/items/${editingItem.id}`, data);
+      console.log("Объявление обновлено:", data);
+      } else {
+      // Если создаем новое, отправляем POST-запрос
+      await axios.post("http://localhost:3000/items", data);
+      console.log("Объявление создано:", data);
+      }
       navigate("/list");
     } catch (error) {
       console.error("Ошибка при создании объявления:", error.response?.data || error.message);

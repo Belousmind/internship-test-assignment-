@@ -30,7 +30,7 @@ const AdPage = () => {
 
   return (  
     <div>
-      <Link to="/form" state={{ id: item.id }}>Редактировать</Link>
+      <Link to="/form" state={{ item }}>Редактировать</Link>
       <hr />
 
       <h2>{item.name}</h2>

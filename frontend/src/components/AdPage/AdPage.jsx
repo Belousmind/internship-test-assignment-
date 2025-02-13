@@ -1,37 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Link, useParams } from "react-router-dom";
-import axios from "axios";
+
 import { Button, Divider, Typography, Skeleton } from 'antd';
 import useDeleteItem from "../hooks/useDeleteItem";
+import useFetchData from "../hooks/useFetchData";
 
 const { Title, Text } = Typography;
 
 const AdPage = () => {
   
   const { PageId } = useParams();
-  const [item, setItem] = useState(null);
-  
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const { data: item, loading, error } = useFetchData(`http://localhost:3000/items/${PageId}`);
   const { showDeleteModal, DeleteModal } = useDeleteItem();
 
-  useEffect(() => {
-    axios.get(`http://localhost:3000/items/${PageId}`)
-      .then((res) => {
-        setItem(res.data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        setError("Ошибка загрузки объявления");
-        setLoading(false);
-      });
-  }, [PageId]);
-
-  console.log(PageId)
-
-  if (loading) return <p>Загрузка объявления...</p>;
-  if (error) return <p>{error}</p>;
-  if (!item) return <p>Объявление не найдено</p>;
+  if (loading) return <Title level={3}>Загрузка объявления...</Title>;
+  if (error) return <Title level={3}>{error}</Title>;
+  if (!item) return <Title level={3}>Объявление не найдено</Title>;
 
   return (  
     <div>

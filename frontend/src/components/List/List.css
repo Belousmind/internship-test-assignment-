@@ -9,7 +9,9 @@
 }
 .filter-container {
   justify-content: end;
+  align-items: center;
   gap: 10px;
+  margin-bottom: 40px;
 }
 
 .title-container {

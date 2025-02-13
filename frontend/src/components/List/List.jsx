@@ -1,6 +1,7 @@
 import "./List.css"
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import useFetchData from "../hooks/useFetchData";
 
 import ListItem from '../ListItem/ListItem';
 import { Pagination, Input, Button, Typography, Divider, Select } from "antd";
@@ -11,27 +12,16 @@ const { Option } = Select;
 
 const List = () => {
 
-  const [items, setItems] = useState([]);
+  const { data: items, loading, error, setData: setItems } = useFetchData("http://localhost:3000/items");
   const [filteredItems, setFilteredItems] = useState([]); 
-  const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 5;
 
   useEffect(() => {
-    fetch("http://localhost:3000/items")
-      .then((res) => res.json())
-      .then((data) => {
-        setItems(data);
-        setFilteredItems(data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error("Ошибка загрузки данных:", error);
-        setLoading(false);
-      });
-  }, []);
+    if (items) setFilteredItems(items);
+  }, [items]);
 
   const handleSearch = (value) => {
     setSearchQuery(value.toLowerCase());
@@ -84,7 +74,7 @@ const List = () => {
         enterButton="Поиск"
         size="medium"
         onSearch={handleSearch}
-        style={{ width: 400, marginBottom: 20 }}
+        style={{ width: 400 }}
       />
 
       <Select
@@ -103,7 +93,8 @@ const List = () => {
 
     <div className="card-list">
       {loading && <Title level={3}>Загрузка...</Title>}
-      {filteredItems.length === 0 && !loading ? <Title level={3}>Объявления не найдены</Title> : null}
+      {error && <Title level={3}>{error}</Title>}
+      {filteredItems.length === 0 && !loading && !error ? <Title level={3}>Объявления не найдены</Title> : null}
 
       {currentItems.map((item) => (
         <ListItem key={item.id} item={item}/>

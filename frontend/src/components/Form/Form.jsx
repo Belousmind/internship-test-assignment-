@@ -19,8 +19,6 @@ const FormPage = () => {
   const [formStep, setFormStep] = useState(1);
   const type = watch("type");
 
-  const [fileList, setFileList] = useState([]);
- 
   useEffect(() => {
     if (editingItem) {
       Object.keys(editingItem).forEach((key) => {
@@ -31,30 +29,12 @@ const FormPage = () => {
 
   const onSubmit = async (data) => {
     try {
-      const formData = new FormData();
-  
-      Object.keys(data).forEach((key) => {
-        if (key !== "photo") {
-          formData.append(key, data[key]);
-        }
-      });
-  
-      if (fileList.length > 0) {
-        formData.append("photo", fileList[0].originFileObj);
-      }
-  
       let response;
       if (editingItem) {
-        response = await axios.put(`http://localhost:3000/items/${editingItem.id}`, formData, {
-          headers: { "Content-Type": "multipart/form-data" },
-        });
+        response = await axios.put(`http://localhost:3000/items/${editingItem.id}`, data);
       } else {
-        response = await axios.post("http://localhost:3000/items", formData, {
-          headers: { "Content-Type": "multipart/form-data" },
-        });
+        response = await axios.post("http://localhost:3000/items", data);
       }
-  
-      console.log("Объявление обновлено:", response.data);
       navigate("/list");
     } catch (error) {
       console.error("Ошибка при создании объявления:", error.response?.data || error.message);
@@ -69,18 +49,20 @@ const FormPage = () => {
           <Button type="primary" ghost>Вернуться к списку объявлений</Button>
         </Link>
       </div>
-      
+
       <Divider />
 
-      <Form layout="vertical" style={{ maxWidth: "480px", margin: "0 auto", padding: "20px" }}>
+      <Form
+        layout="vertical"
+        style={{ maxWidth: "480px", margin: "0 auto", padding: "20px" }}
+        onFinish={handleSubmit(onSubmit)}
+      >
         {formStep === 1 && (
           <FormStep1 
             setFormStep={setFormStep} 
             control={control} 
             errors={errors} 
             isValid={isValid}
-            fileList={fileList}
-            setFileList={setFileList}
          />
         )}
 
@@ -90,9 +72,9 @@ const FormPage = () => {
             control={control} 
             errors={errors} 
             type={type} 
-            handleSubmit={handleSubmit(onSubmit)} 
+            handleSubmit={handleSubmit}
             isValid={isValid}
-            fileList={fileList}
+            onSubmit={onSubmit}
           />
         )}
       </Form>

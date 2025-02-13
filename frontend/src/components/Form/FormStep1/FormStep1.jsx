@@ -35,7 +35,7 @@ const FormStep1 = ({ setFormStep, control, errors, isValid, fileList, setFileLis
         />
       </Form.Item>
 
-      <ImageUpload fileList={fileList} setFileList={setFileList}/>
+      {/* <ImageUpload fileList={fileList} setFileList={setFileList}/> */}
 
       <Form.Item label="Категория" validateStatus={errors.type ? "error" : ""} help={errors.type?.message}>
         <Controller

@@ -3,7 +3,7 @@ import CarFields from "../CarFields/CarFields";
 import ServiceFields from "../ServiceFields/ServiceFields";
 import { Button } from "antd";
 
-const FormStep2 = ({ setFormStep, control, errors, type, handleSubmit, isValid }) => {
+const FormStep2 = ({ setFormStep, control, errors, type, handleSubmit, isValid, onSubmit }) => {
   return (
     <>
       <h2>Дополнительная информация</h2>
@@ -15,7 +15,12 @@ const FormStep2 = ({ setFormStep, control, errors, type, handleSubmit, isValid }
       <Button type="default" onClick={() => setFormStep(1)}>
         Назад
       </Button>
-      <Button type="primary" onClick={handleSubmit} style={{ marginLeft: 10 }} disabled={!isValid}>
+      <Button 
+        type="primary" 
+        onClick={handleSubmit(onSubmit)}
+        style={{ marginLeft: 10 }} 
+        disabled={!isValid}
+      >
         Отправить
       </Button>
     </>

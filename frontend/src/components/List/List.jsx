@@ -1,10 +1,11 @@
 import "./List.css"
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+
 import useFetchData from "../hooks/useFetchData";
 
 import ListItem from '../ListItem/ListItem';
-import { Pagination, Input, Button, Typography, Divider, Select } from "antd";
+import NavigationButton from "../UI/NavigationButton";
+import { Pagination, Input, Typography, Divider, Select } from "antd";
 
 const { Search } = Input;
 const { Title } = Typography;
@@ -59,9 +60,7 @@ const List = () => {
   <>
     <div className="title-container">
       <Title>Доска объявлений</Title>
-      <Link to="/form">
-        <Button type="primary" ghost>Разместить объявление</Button>
-      </Link>
+      <NavigationButton to="/form" label="Разместить объявление" type="primary" ghost />
     </div>
 
     <Divider/>

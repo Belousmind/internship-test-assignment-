@@ -1,6 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { Button, Card, Skeleton, Tag } from "antd";
+import NavigationButton from "../UI/NavigationButton";
+import { Card, Skeleton, Tag } from "antd";
 
 const { Meta } = Card;
 
@@ -42,12 +42,7 @@ const ListItem = ({ item }) => {
           {item.type}
         </Tag>
       </p>
-
-      <Link to={`/list/${item.id}`}>
-        <Button type="primary" ghost>
-          Открыть
-        </Button>
-      </Link>
+      <NavigationButton to={`/list/${item.id}`} label="Открыть" type="primary" ghost />
     </Card>
     </>
   );

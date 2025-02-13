@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import NavigationButton from "../UI/NavigationButton";
 import axios from "axios";
-import { Form, Button, Divider, Typography, message } from "antd";
+import { Form, Divider, Typography, message } from "antd";
 import FormStep1 from "./FormStep1/FormStep1";
 import FormStep2 from "./FormStep2/FormStep2";
 
@@ -46,9 +47,7 @@ const FormPage = () => {
     <>
       <div className="title-container">
         <Title level={2}>{editingItem ? 'Редактировать объявление' : 'Создать объявление'}</Title>
-        <Link to="/list">
-          <Button type="primary" ghost>Вернуться к списку объявлений</Button>
-        </Link>
+        <NavigationButton to="/list" label="Вернуться к списку объявлений" type="primary" ghost />
       </div>
 
       <Divider />

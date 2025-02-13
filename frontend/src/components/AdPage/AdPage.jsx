@@ -1,9 +1,10 @@
 import React from 'react';
-import { Link, useParams } from "react-router-dom";
-
-import { Button, Divider, Typography, Skeleton } from 'antd';
+import { useParams } from "react-router-dom";
 import useDeleteItem from "../hooks/useDeleteItem";
 import useFetchData from "../hooks/useFetchData";
+import NavigationButton from "../UI/NavigationButton";
+
+import { Button, Divider, Typography, Skeleton } from 'antd';
 
 const { Title, Text } = Typography;
 
@@ -21,9 +22,7 @@ const AdPage = () => {
     <div>
       <div className="title-container">
         <Title level={2}>{item.name}</Title>
-        <Link to="/list">
-          <Button type="primary" ghost>Вернуться к списку объявлений</Button>
-        </Link>
+        <NavigationButton to="/list" label="Вернуться к списку объявлений" type="primary" ghost />
       </div>
 
       <Divider />
@@ -47,9 +46,8 @@ const AdPage = () => {
 
 
       <div style={{display: 'flex', justifyContent: 'center', gap: 12, margin: '20px 0 60px 0'}}>
-        <Link to="/form" state={{ item }}>
-          <Button type="primary" ghost>Редактировать</Button>
-        </Link>
+
+        <NavigationButton to="/form" state={{ item }} label="Редактировать" type="primary" ghost />
 
         <Button danger onClick={() => showDeleteModal(item)}>Удалить</Button>
       </div>

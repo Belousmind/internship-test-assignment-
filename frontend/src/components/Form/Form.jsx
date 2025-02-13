@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import { Form, Button, Divider, Typography } from "antd";
+import { Form, Button, Divider, Typography, message } from "antd";
 import FormStep1 from "./FormStep1/FormStep1";
 import FormStep2 from "./FormStep2/FormStep2";
 
@@ -37,6 +37,7 @@ const FormPage = () => {
       }
       navigate("/list");
     } catch (error) {
+      message.error(`Ошибка при создании объявления: ${error.message}`);
       console.error("Ошибка при создании объявления:", error.response?.data || error.message);
     }
   };

@@ -15,6 +15,7 @@ const ListItem = ({ item }) => {
   const imageExists = !!item.imageUrl;
 
   return (
+    <>
     <Card
       hoverable
       cover={
@@ -43,12 +44,12 @@ const ListItem = ({ item }) => {
       </p>
 
       <Link to={`/list/${item.id}`}>
-        <Button type="primary" ghost style={{ margin: "10px 10px 5px 0"}}>
+        <Button type="primary" ghost style={{ margin: 10}}>
           Открыть
         </Button>
       </Link>
-      <Button danger>Удалить</Button>
     </Card>
+    </>
   );
 };
 

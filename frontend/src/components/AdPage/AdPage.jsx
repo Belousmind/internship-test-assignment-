@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import { Button, Divider, Typography, Skeleton } from 'antd';
+import useDeleteItem from "../hooks/useDeleteItem";
 
 const { Title, Text } = Typography;
 
@@ -12,6 +13,7 @@ const AdPage = () => {
   
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { showDeleteModal, DeleteModal } = useDeleteItem();
 
   useEffect(() => {
     axios.get(`http://localhost:3000/items/${PageId}`)
@@ -65,8 +67,9 @@ const AdPage = () => {
           <Button type="primary" ghost>Редактировать</Button>
         </Link>
 
-        <Button danger>Удалить</Button>
+        <Button danger onClick={() => showDeleteModal(item)}>Удалить</Button>
       </div>
+      {DeleteModal}
     </div>
 )};
 

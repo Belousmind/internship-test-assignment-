@@ -18,13 +18,23 @@ const beforeUpload = (file) => {
   return true;
 };
 
-const ImageUpload = () => {
+const ImageUpload = ({ fileList, setFileList }) => {
+
+  const handleChange = ({ fileList }) => {
+    setFileList(fileList);
+  };
+
   return (
     <Form.Item
       label={<>Фото</>}
       help={<span style={{ fontSize: "12px", color: "#888", marginTop: "4px" }}>Допустимые форматы: JPG, JPEG, PNG. Максимальный размер: 5МБ.</span>}
     >
-      <Upload beforeUpload={beforeUpload} listType="picture">
+      <Upload 
+        beforeUpload={beforeUpload}
+        listType="picture"
+        fileList={fileList}
+        onChange={handleChange}
+        >
         <Button icon={<UploadOutlined />}>Загрузить</Button>
       </Upload>
     </Form.Item>

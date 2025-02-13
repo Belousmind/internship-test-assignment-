@@ -1,10 +1,9 @@
-import { Form, Input, Select, Upload, Button } from "antd";
+import { Form, Input, Select, Button } from "antd";
 import { Controller } from "react-hook-form";
-import { UploadOutlined } from "@ant-design/icons";
 import ImageUpload from "../ImageUpload/ImageUpload";
 const { Option } = Select;
 
-const FormStep1 = ({ setFormStep, control, errors, isValid }) => {
+const FormStep1 = ({ setFormStep, control, errors, isValid, fileList, setFileList  }) => {
   return (
     <>
       <h2>Основная информация</h2>
@@ -36,7 +35,7 @@ const FormStep1 = ({ setFormStep, control, errors, isValid }) => {
         />
       </Form.Item>
 
-      <ImageUpload/>
+      <ImageUpload fileList={fileList} setFileList={setFileList}/>
 
       <Form.Item label="Категория" validateStatus={errors.type ? "error" : ""} help={errors.type?.message}>
         <Controller

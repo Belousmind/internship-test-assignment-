@@ -16,6 +16,8 @@ const FormPage = () => {
 
   const [formStep, setFormStep] = useState(1);
   const type = watch("type");
+
+  const [fileList, setFileList] = useState([]);
  
   useEffect(() => {
     if (editingItem) {
@@ -27,15 +29,30 @@ const FormPage = () => {
 
   const onSubmit = async (data) => {
     try {
-      if (editingItem) {
-      // Если редактируем, отправляем PUT-запрос
-      await axios.put(`http://localhost:3000/items/${editingItem.id}`, data);
-      console.log("Объявление обновлено:", data);
-      } else {
-      // Если создаем новое, отправляем POST-запрос
-      await axios.post("http://localhost:3000/items", data);
-      console.log("Объявление создано:", data);
+      const formData = new FormData();
+  
+      Object.keys(data).forEach((key) => {
+        if (key !== "photo") {
+          formData.append(key, data[key]);
+        }
+      });
+  
+      if (fileList.length > 0) {
+        formData.append("photo", fileList[0].originFileObj);
       }
+  
+      let response;
+      if (editingItem) {
+        response = await axios.put(`http://localhost:3000/items/${editingItem.id}`, formData, {
+          headers: { "Content-Type": "multipart/form-data" },
+        });
+      } else {
+        response = await axios.post("http://localhost:3000/items", formData, {
+          headers: { "Content-Type": "multipart/form-data" },
+        });
+      }
+  
+      console.log("Объявление обновлено:", response.data);
       navigate("/list");
     } catch (error) {
       console.error("Ошибка при создании объявления:", error.response?.data || error.message);
@@ -49,11 +66,26 @@ const FormPage = () => {
 
       <Form layout="vertical" style={{ maxWidth: "480px", margin: "0 auto", padding: "20px" }}>
         {formStep === 1 && (
-          <FormStep1 setFormStep={setFormStep} control={control} errors={errors} isValid={isValid} />
+          <FormStep1 
+            setFormStep={setFormStep} 
+            control={control} 
+            errors={errors} 
+            isValid={isValid}
+            fileList={fileList}
+            setFileList={setFileList}
+         />
         )}
 
         {formStep === 2 && (
-          <FormStep2 setFormStep={setFormStep} control={control} errors={errors} type={type} handleSubmit={handleSubmit(onSubmit)} isValid={isValid} />
+          <FormStep2 
+            setFormStep={setFormStep} 
+            control={control} 
+            errors={errors} 
+            type={type} 
+            handleSubmit={handleSubmit(onSubmit)} 
+            isValid={isValid}
+            fileList={fileList}
+          />
         )}
       </Form>
     </>

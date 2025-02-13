@@ -1,10 +1,12 @@
+import "./List.css"
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import ListItem from '../ListItem/ListItem';
-import { Pagination, Input, Button } from "antd";
+import { Pagination, Input, Button, Typography, Divider } from "antd";
 
 const { Search } = Input;
+const { Title } = Typography;
 
 const List = () => {
 
@@ -45,35 +47,42 @@ const List = () => {
   
   return (  
   <>
-    <h1>Список объявлений</h1>
-    <Link to="/form">
-      <Button type="primary" ghost>Разместить объявление</Button>
-    </Link>
-    <hr />
+    <div className="list-title">
+      <Title>Доска объявлений</Title>
+      <Link to="/form">
+        <Button type="primary" ghost>Разместить объявление</Button>
+      </Link>
+    </div>
 
-    <Search
-      placeholder="Поиск по названию..."
-      allowClear
-      enterButton="Поиск"
-      size="large"
-      onSearch={handleSearch}
-      style={{ width: 400, marginBottom: 20 }}
-    />
+    <Divider/>
 
-    {loading && <p>Загрузка...</p>}
-    {filteredItems.length === 0 && !loading ? <p>Объявления не найдены</p> : null}
+    <div className="filter-container">
+      <Search
+        placeholder="Поиск по названию..."
+        allowClear
+        enterButton="Поиск"
+        size="medium"
+        onSearch={handleSearch}
+        style={{ width: 400, marginBottom: 20 }}
+      />
+    </div>
 
-    {currentItems.map((item) => (
-      <ListItem key={item.id} item={item} />
-    ))}
+    <div className="card-list">
+      {loading && <Title level={3}>Загрузка...</Title>}
+      {filteredItems.length === 0 && !loading ? <Title level={3}>Объявления не найдены</Title> : null}
 
-    <Pagination
-      current={currentPage}
-      pageSize={pageSize}
-      total={items.length}
-      onChange={(page) => setCurrentPage(page)}
-      style={{ marginTop: "20px", textAlign: "center" }}
-    />
+      {currentItems.map((item) => (
+        <ListItem key={item.id} item={item}/>
+      ))}
+
+      <Pagination
+        current={currentPage}
+        pageSize={pageSize}
+        total={items.length}
+        onChange={(page) => setCurrentPage(page)}
+        style={{ margin: "20px 0 60px 0", textAlign: "center" }}
+      />
+    </div>
   </>  
 )};
 

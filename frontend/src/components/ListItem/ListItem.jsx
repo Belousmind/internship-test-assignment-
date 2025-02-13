@@ -31,7 +31,7 @@ const ListItem = ({ item }) => {
           />
         )
       }
-      style={{ maxWidth: 450, margin: "16px auto" }}
+      style={{ maxWidth: 450, width: "100%", margin: "16px auto" }}
     >
       <Meta title={item.name} description={item.description} />
       <p><strong>Локация:</strong> {item.location}</p>
@@ -43,10 +43,11 @@ const ListItem = ({ item }) => {
       </p>
 
       <Link to={`/list/${item.id}`}>
-        <Button type="primary" ghost style={{ marginTop: "10px" }}>
+        <Button type="primary" ghost style={{ margin: "10px 10px 5px 0"}}>
           Открыть
         </Button>
       </Link>
+      <Button danger>Удалить</Button>
     </Card>
   );
 };

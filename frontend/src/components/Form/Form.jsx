@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import { Form, Button } from "antd";
+import { Form, Button, Divider } from "antd";
 import FormStep1 from "./FormStep1/FormStep1";
 import FormStep2 from "./FormStep2/FormStep2";
 
@@ -65,7 +65,7 @@ const FormPage = () => {
       <Link to="/list">
         <Button type="primary" ghost>Вернуться к списку объявлений</Button>
       </Link>
-      <hr />
+      <Divider />
 
       <Form layout="vertical" style={{ maxWidth: "480px", margin: "0 auto", padding: "20px" }}>
         {formStep === 1 && (

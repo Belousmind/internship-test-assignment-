@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
-import { Button } from 'antd';
+import { Button, Divider } from 'antd';
 
 
 const AdPage = () => {
@@ -32,10 +32,13 @@ const AdPage = () => {
 
   return (  
     <div>
+      <Link to="/list">
+        <Button type="primary" ghost>Вернуться к списку объявлений</Button>
+      </Link>
       <Link to="/form" state={{ item }}>
         <Button type="primary" ghost>Редактировать</Button>
       </Link>
-      <hr />
+      <Divider />
 
       <h2>{item.name}</h2>
       <p>{item.description}</p>
@@ -47,10 +50,7 @@ const AdPage = () => {
 
       {item.type === "Услуги" && <Service item={item}/>}
 
-      <hr />
-      <Link to="/list">
-        <Button type="primary" ghost>Вернуться к списку объявлений</Button>
-      </Link>
+  
     </div>
 )};
 

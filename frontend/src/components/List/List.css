@@ -1,0 +1,34 @@
+.list-title,
+.card-list,
+.filter-container {
+  display: flex;
+}
+.card-list {
+  flex-direction: column;
+  align-items: center;
+}
+.filter-container {
+  justify-content: end;
+}
+
+.list-title {
+  align-items: center;
+  justify-content: space-between;
+}
+.filter-container,
+.list-title {
+  padding: 0 60px;
+}
+@media (max-width: 690px) {
+  .list-title {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .list-title,
+  .filter-container {
+    padding: 0 10px;
+  }
+  .filter-container {
+    justify-content: start;
+  }
+}

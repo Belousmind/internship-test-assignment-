@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import { Form } from "antd";
 import FormStep1 from "./FormStep1/FormStep1";
 import FormStep2 from "./FormStep2/FormStep2";
 
@@ -11,15 +12,15 @@ const FormPage = () => {
   const navigate = useNavigate();
   const editingItem = location.state?.item || null;
 
+  const { control, handleSubmit, setValue, watch, formState: { errors, isValid } } = useForm({ mode: "onChange" });
 
   const [formStep, setFormStep] = useState(1);
-  const { register, handleSubmit, setValue, watch, formState: { errors } } = useForm();
   const type = watch("type");
  
   useEffect(() => {
     if (editingItem) {
       Object.keys(editingItem).forEach((key) => {
-        setValue(key, editingItem[key]);
+        setValue(key, editingItem[key], { shouldValidate: true });
       });
     }
   }, [editingItem, setValue]);
@@ -46,15 +47,15 @@ const FormPage = () => {
       <Link to="/list">Вернуться к списку объявлений</Link>
       <hr />
 
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <Form layout="vertical" style={{ maxWidth: "480px", margin: "0 auto", padding: "20px" }}>
         {formStep === 1 && (
-          <FormStep1 setFormStep={setFormStep} register={register} watch={watch} errors={errors} />
+          <FormStep1 setFormStep={setFormStep} control={control} errors={errors} isValid={isValid} />
         )}
 
         {formStep === 2 && (
-          <FormStep2 setFormStep={setFormStep} register={register} errors={errors} type={type} />
+          <FormStep2 setFormStep={setFormStep} control={control} errors={errors} type={type} handleSubmit={handleSubmit(onSubmit)} isValid={isValid} />
         )}
-      </form>
+      </Form>
     </>
   );
 };

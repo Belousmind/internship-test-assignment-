@@ -7,6 +7,7 @@ const AdPage = () => {
   
   const { PageId } = useParams();
   const [item, setItem] = useState(null);
+  
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 

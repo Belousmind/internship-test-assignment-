@@ -1,26 +1,53 @@
-const RealEstateFields = ({ register, errors }) => {
+import { Form, Select, Input } from "antd";
+import { Controller } from "react-hook-form";
+
+const { Option } = Select;
+
+const RealEstateFields = ({ control, errors }) => {
   return (
     <>
-      <label>Тип недвижимости</label>
-      <select {...register("propertyType", { required: "Выберите тип недвижимости" })}>
-        <option value="">Выберите</option>
-        <option value="apartment">Квартира</option>
-        <option value="house">Дом</option>
-        <option value="cottage">Коттедж</option>
-      </select>
-      {errors.propertyType && <p style={{ color: "red" }}>{errors.propertyType.message}</p>}
+      <Form.Item label="Тип недвижимости" validateStatus={errors.propertyType ? "error" : ""} help={errors.propertyType?.message}>
+        <Controller
+          name="propertyType"
+          control={control}
+          rules={{ required: "Выберите тип недвижимости" }}
+          render={({ field }) => (
+            <Select {...field} placeholder="Выберите тип недвижимости">
+              <Option value="">Выберите</Option>
+              <Option value="apartment">Квартира</Option>
+              <Option value="house">Дом</Option>
+              <Option value="cottage">Коттедж</Option>
+            </Select>
+          )}
+        />
+      </Form.Item>
 
-      <label>Площадь (кв. м)</label>
-      <input type="number" {...register("area", { required: "Введите площадь" })} />
-      {errors.area && <p style={{ color: "red" }}>{errors.area.message}</p>}
+      <Form.Item label="Площадь (кв. м)" validateStatus={errors.area ? "error" : ""} help={errors.area?.message}>
+        <Controller
+          name="area"
+          control={control}
+          rules={{ required: "Введите площадь" }}
+          render={({ field }) => <Input type="number" {...field} />}
+        />
+      </Form.Item>
 
-      <label>Количество комнат</label>
-      <input type="number" {...register("rooms", { required: "Введите количество комнат" })} />
-      {errors.rooms && <p style={{ color: "red" }}>{errors.rooms.message}</p>}
+      <Form.Item label="Количество комнат" validateStatus={errors.rooms ? "error" : ""} help={errors.rooms?.message}>
+        <Controller
+          name="rooms"
+          control={control}
+          rules={{ required: "Введите количество комнат" }}
+          render={({ field }) => <Input type="number" {...field} />}
+        />
+      </Form.Item>
 
-      <label>Цена (₽)</label>
-      <input type="number" {...register("price", { required: "Введите цену" })} />
-      {errors.price && <p style={{ color: "red" }}>{errors.price.message}</p>}
+      <Form.Item label="Цена (₽)" validateStatus={errors.price ? "error" : ""} help={errors.price?.message}>
+        <Controller
+          name="price"
+          control={control}
+          rules={{ required: "Введите цену" }}
+          render={({ field }) => <Input type="number" {...field} />}
+        />
+      </Form.Item>
     </>
   );
 };

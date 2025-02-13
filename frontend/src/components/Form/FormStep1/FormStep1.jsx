@@ -1,45 +1,65 @@
-const FormStep1 = ({ setFormStep, register, watch, errors }) => {
-  
-  const name = watch("name");
-  const description = watch("description");
-  const location = watch("location");
-  const type = watch("type");
+import { Form, Input, Select, Upload, Button } from "antd";
+import { Controller } from "react-hook-form";
+import { UploadOutlined } from "@ant-design/icons";
 
+const { Option } = Select;
+
+const FormStep1 = ({ setFormStep, control, errors, isValid }) => {
   return (
     <>
       <h2>Основная информация</h2>
 
-      <label>Название</label>
-      <input type="text" {...register("name", { required: "Введите название" })} />
-      {errors.name && <p style={{ color: "red" }}>{errors.name.message}</p>}
+      <Form.Item label="Название" validateStatus={errors.name ? "error" : ""} help={errors.name?.message}>
+        <Controller
+          name="name"
+          control={control}
+          rules={{ required: "Введите название" }}
+          render={({ field }) => <Input {...field} />}
+        />
+      </Form.Item>
 
-      <label>Описание</label>
-      <textarea {...register("description", { required: "Введите описание" })}></textarea>
-      {errors.description && <p style={{ color: "red" }}>{errors.description.message}</p>}
+      <Form.Item label="Описание" validateStatus={errors.description ? "error" : ""} help={errors.description?.message}>
+        <Controller
+          name="description"
+          control={control}
+          rules={{ required: "Введите описание" }}
+          render={({ field }) => <Input.TextArea {...field} />}
+        />
+      </Form.Item>
 
-      <label>Локация</label>
-      <input type="text" {...register("location", { required: "Введите локацию" })} />
-      {errors.location && <p style={{ color: "red" }}>{errors.location.message}</p>}
+      <Form.Item label="Локация" validateStatus={errors.location ? "error" : ""} help={errors.location?.message}>
+        <Controller
+          name="location"
+          control={control}
+          rules={{ required: "Введите локацию" }}
+          render={({ field }) => <Input {...field} />}
+        />
+      </Form.Item>
 
-      <label>Фото</label>
-      <input type="file" {...register("photo")} />
+      <Form.Item label="Фото">
+        <Upload beforeUpload={() => false} listType="picture">
+          <Button icon={<UploadOutlined />}>Загрузить</Button>
+        </Upload>
+      </Form.Item>
 
-      <label>Категория</label>
-      <select {...register("type", { required: "Выберите категорию" })}>
-        <option value="">Выберите категорию</option>
-        <option value="Недвижимость">Недвижимость</option>
-        <option value="Авто">Авто</option>
-        <option value="Услуги">Услуги</option>
-      </select>
-      {errors.category && <p style={{ color: "red" }}>{errors.category.message}</p>}
+      <Form.Item label="Категория" validateStatus={errors.type ? "error" : ""} help={errors.type?.message}>
+        <Controller
+          name="type"
+          control={control}
+          rules={{ required: "Выберите категорию" }}
+          render={({ field }) => (
+            <Select {...field} placeholder="Выберите категорию">
+              <Option value="Недвижимость">Недвижимость</Option>
+              <Option value="Авто">Авто</Option>
+              <Option value="Услуги">Услуги</Option>
+            </Select>
+          )}
+        />
+      </Form.Item>
 
-      <button
-        type="button"
-        onClick={() => setFormStep(2)}
-        disabled={!name || !description || !location || !type}
-      >
+      <Button type="primary" onClick={() => setFormStep(2)} disabled={!isValid}>
         Далее
-      </button>
+      </Button>
     </>
   );
 };

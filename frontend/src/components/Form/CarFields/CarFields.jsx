@@ -1,25 +1,52 @@
-const CarFields = ({ register, errors }) => {
+import { Form, Select, Input } from "antd";
+import { Controller } from "react-hook-form";
+
+const { Option } = Select;
+
+const CarFields = ({ control, errors }) => {
   return (
     <>
-      <label>Марка</label>
-      <select {...register("brand", { required: "Выберите марку" })}>
-        <option value="">Выберите</option>
-        <option value="Toyota">Toyota</option>
-        <option value="BMW">BMW</option>
-        <option value="Mercedes">Mercedes</option>
-      </select>
-      {errors.carBrand && <p style={{ color: "red" }}>{errors.carBrand.message}</p>}
+      <Form.Item label="Марка" validateStatus={errors.brand ? "error" : ""} help={errors.brand?.message}>
+        <Controller
+          name="brand"
+          control={control}
+          rules={{ required: "Выберите марку" }}
+          render={({ field }) => (
+            <Select {...field} placeholder="Выберите марку">
+              <Option value="">Выберите</Option>
+              <Option value="Toyota">Toyota</Option>
+              <Option value="BMW">BMW</Option>
+              <Option value="Mercedes">Mercedes</Option>
+            </Select>
+          )}
+        />
+      </Form.Item>
 
-      <label>Модель</label>
-      <input type="text" {...register("model", { required: "Введите модель" })} />
-      {errors.carModel && <p style={{ color: "red" }}>{errors.carModel.message}</p>}
+      <Form.Item label="Модель" validateStatus={errors.model ? "error" : ""} help={errors.model?.message}>
+        <Controller
+          name="model"
+          control={control}
+          rules={{ required: "Введите модель" }}
+          render={({ field }) => <Input {...field} />}
+        />
+      </Form.Item>
 
-      <label>Год выпуска</label>
-      <input type="number" {...register("year", { required: "Введите год выпуска" })} />
-      {errors.carYear && <p style={{ color: "red" }}>{errors.carYear.message}</p>}
+      <Form.Item label="Год выпуска" validateStatus={errors.year ? "error" : ""} help={errors.year?.message}>
+        <Controller
+          name="year"
+          control={control}
+          rules={{ required: "Введите год выпуска" }}
+          render={({ field }) => <Input type="number" {...field} />}
+        />
+      </Form.Item>
 
-      <label>Пробег (км)</label>
-      <input type="number" {...register("mileage")} />
+      <Form.Item label="Пробег (км)">
+        <Controller
+          name="mileage"
+          control={control}
+          render={({ field }) => <Input type="number" {...field} />}
+        />
+      </Form.Item>
     </>
   );
 };

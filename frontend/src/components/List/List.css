@@ -9,6 +9,7 @@
 }
 .filter-container {
   justify-content: end;
+  gap: 10px;
 }
 
 .title-container {

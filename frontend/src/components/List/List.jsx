@@ -3,10 +3,11 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import ListItem from '../ListItem/ListItem';
-import { Pagination, Input, Button, Typography, Divider } from "antd";
+import { Pagination, Input, Button, Typography, Divider, Select } from "antd";
 
 const { Search } = Input;
 const { Title } = Typography;
+const { Option } = Select;
 
 const List = () => {
 
@@ -14,6 +15,7 @@ const List = () => {
   const [filteredItems, setFilteredItems] = useState([]); 
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCategories, setSelectedCategories] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 5;
 
@@ -33,13 +35,31 @@ const List = () => {
 
   const handleSearch = (value) => {
     setSearchQuery(value.toLowerCase());
-    const filtered = items.filter((item) =>
-      item.name.toLowerCase().includes(value.toLowerCase())
-    );
-    setFilteredItems(filtered);
+    filterItems(value, selectedCategories);
     setCurrentPage(1);
   };
 
+  const handleCategoryChange = (categories) => {
+    setSelectedCategories(categories);
+    filterItems(searchQuery, categories);
+    setCurrentPage(1);
+  };
+
+  const filterItems = (search, categories) => {
+    let filtered = items;
+
+    if (search) {
+      filtered = filtered.filter((item) =>
+        item.name.toLowerCase().includes(search.toLowerCase())
+      );
+    }
+
+    if (categories.length > 0) {
+      filtered = filtered.filter((item) => categories.includes(item.type));
+    }
+
+    setFilteredItems(filtered);
+  };
 
   const indexOfLastItem = currentPage * pageSize;
   const indexOfFirstItem = indexOfLastItem - pageSize;
@@ -57,6 +77,7 @@ const List = () => {
     <Divider/>
 
     <div className="filter-container">
+
       <Search
         placeholder="Поиск по названию..."
         allowClear
@@ -65,6 +86,19 @@ const List = () => {
         onSearch={handleSearch}
         style={{ width: 400, marginBottom: 20 }}
       />
+
+      <Select
+        mode="multiple"
+        placeholder="Выберите категорию"
+        allowClear
+        onChange={handleCategoryChange}
+        style={{ width: 250 }}
+      >
+        <Option value="Недвижимость">Недвижимость</Option>
+        <Option value="Авто">Авто</Option>
+        <Option value="Услуги">Услуги</Option>
+      </Select>
+
     </div>
 
     <div className="card-list">

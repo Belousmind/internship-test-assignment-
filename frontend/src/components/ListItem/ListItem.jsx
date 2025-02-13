@@ -44,7 +44,7 @@ const ListItem = ({ item }) => {
       </p>
 
       <Link to={`/list/${item.id}`}>
-        <Button type="primary" ghost style={{ margin: 10}}>
+        <Button type="primary" ghost>
           Открыть
         </Button>
       </Link>

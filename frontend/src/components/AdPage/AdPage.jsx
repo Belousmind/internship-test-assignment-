@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
-import { Button, Divider } from 'antd';
+import { Button, Divider, Typography, Skeleton } from 'antd';
 
+const { Title, Text } = Typography;
 
 const AdPage = () => {
   
@@ -32,25 +33,40 @@ const AdPage = () => {
 
   return (  
     <div>
-      <Link to="/list">
-        <Button type="primary" ghost>Вернуться к списку объявлений</Button>
-      </Link>
-      <Link to="/form" state={{ item }}>
-        <Button type="primary" ghost>Редактировать</Button>
-      </Link>
+      <div className="title-container">
+        <Title level={2}>{item.name}</Title>
+        <Link to="/list">
+          <Button type="primary" ghost>Вернуться к списку объявлений</Button>
+        </Link>
+      </div>
+
       <Divider />
 
-      <h2>{item.name}</h2>
-      <p>{item.description}</p>
-      <p><strong>Локация:</strong> {item.location}</p>
+      <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 10, padding: 10, maxWidth: 600, margin: '0 auto'}}>
 
-      {item.type === "Недвижимость" && <RealEstate item={item}/>}
+        <Skeleton.Image 
+          style={{ width: '100%', height: "350px" }}
+          active={false}
+        />
 
-      {item.type === "Авто" && <Car item={item}/>}
+        <Text style={{fontSize: 18}}>{item.description}</Text>
+        <Text><strong>Локация:</strong> {item.location}</Text>
 
-      {item.type === "Услуги" && <Service item={item}/>}
+        {item.type === "Недвижимость" && <RealEstate item={item}/>}
 
-  
+        {item.type === "Авто" && <Car item={item}/>}
+
+        {item.type === "Услуги" && <Service item={item}/>}
+      </div>
+
+
+      <div style={{display: 'flex', justifyContent: 'center', gap: 12, margin: '20px 0 60px 0'}}>
+        <Link to="/form" state={{ item }}>
+          <Button type="primary" ghost>Редактировать</Button>
+        </Link>
+
+        <Button danger>Удалить</Button>
+      </div>
     </div>
 )};
 
@@ -59,10 +75,10 @@ export default AdPage;
 const RealEstate = ({item}) => {
   return (
     <>
-      <p><strong>Тип:</strong> {item.propertyType}</p>
-      <p><strong>Площадь:</strong> {item.area} м²</p>
-      <p><strong>Комнат:</strong> {item.rooms}</p>
-      <p><strong>Цена:</strong> {item.price.toLocaleString()} ₽</p>
+      <Text><strong>Тип:</strong> {item.propertyType}</Text>
+      <Text><strong>Площадь:</strong> {item.area} м²</Text>
+      <Text><strong>Комнат:</strong> {item.rooms}</Text>
+      <Text><strong>Цена:</strong> {item.price.toLocaleString()} ₽</Text>
     </>
   )
 }
@@ -70,10 +86,10 @@ const RealEstate = ({item}) => {
 const Car = ({item}) => {
   return (
     <>
-      <p><strong>Марка:</strong> {item.brand}</p>
-      <p><strong>Модель:</strong> {item.model}</p>
-      <p><strong>Год выпуска:</strong> {item.year}</p>
-      {item.mileage && <p><strong>Пробег:</strong> {item.mileage.toLocaleString()} км</p>}
+      <Text><strong>Марка:</strong> {item.brand}</Text>
+      <Text><strong>Модель:</strong> {item.model}</Text>
+      <Text><strong>Год выпуска:</strong> {item.year}</Text>
+      {item.mileage && <Text><strong>Пробег:</strong> {item.mileage.toLocaleString()} км</Text>}
     </>
   )
 }
@@ -81,10 +97,10 @@ const Car = ({item}) => {
 const Service = ({item}) => {
   return (
     <>
-      <p><strong>Тип услуги:</strong> {item.serviceType}</p>
-      <p><strong>Опыт:</strong> {item.experience} лет</p>
-      <p><strong>Стоимость:</strong> {item.cost.toLocaleString()} ₽</p>
-      {item.workSchedule && <p><strong>График работы:</strong> {item.workSchedule}</p>}
+      <Text><strong>Тип услуги:</strong> {item.serviceType}</Text>
+      <Text><strong>Опыт:</strong> {item.experience} лет</Text>
+      <Text><strong>Стоимость:</strong> {item.cost.toLocaleString()} ₽</Text>
+      {item.workSchedule && <Text><strong>График работы:</strong> {item.workSchedule}</Text>}
     </>
   )
 }

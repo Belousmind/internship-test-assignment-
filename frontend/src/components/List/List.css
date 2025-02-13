@@ -1,4 +1,4 @@
-.list-title,
+.title-container,
 .card-list,
 .filter-container {
   display: flex;
@@ -11,20 +11,20 @@
   justify-content: end;
 }
 
-.list-title {
+.title-container {
   align-items: center;
   justify-content: space-between;
 }
 .filter-container,
-.list-title {
+.title-container {
   padding: 0 60px;
 }
 @media (max-width: 690px) {
-  .list-title {
+  .title-container {
     flex-direction: column;
     align-items: flex-start;
   }
-  .list-title,
+  .title-container,
   .filter-container {
     padding: 0 10px;
   }

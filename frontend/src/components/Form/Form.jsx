@@ -2,9 +2,11 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import { Form, Button, Divider } from "antd";
+import { Form, Button, Divider, Typography } from "antd";
 import FormStep1 from "./FormStep1/FormStep1";
 import FormStep2 from "./FormStep2/FormStep2";
+
+const { Title } = Typography;
 
 const FormPage = () => {
 
@@ -61,10 +63,13 @@ const FormPage = () => {
 
   return (
     <>
-    
-      <Link to="/list">
-        <Button type="primary" ghost>Вернуться к списку объявлений</Button>
-      </Link>
+      <div className="title-container">
+        <Title level={2}>{editingItem ? 'Редактировать объявление' : 'Создать объявление'}</Title>
+        <Link to="/list">
+          <Button type="primary" ghost>Вернуться к списку объявлений</Button>
+        </Link>
+      </div>
+      
       <Divider />
 
       <Form layout="vertical" style={{ maxWidth: "480px", margin: "0 auto", padding: "20px" }}>

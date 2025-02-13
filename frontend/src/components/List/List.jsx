@@ -47,7 +47,7 @@ const List = () => {
   
   return (  
   <>
-    <div className="list-title">
+    <div className="title-container">
       <Title>Доска объявлений</Title>
       <Link to="/form">
         <Button type="primary" ghost>Разместить объявление</Button>

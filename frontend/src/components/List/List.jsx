@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import ListItem from '../ListItem/ListItem';
-import { Pagination, Input } from "antd";
+import { Pagination, Input, Button } from "antd";
 
 const { Search } = Input;
 
@@ -46,7 +46,9 @@ const List = () => {
   return (  
   <>
     <h1>Список объявлений</h1>
-    <Link to="/form">Создать объявление</Link>
+    <Link to="/form">
+      <Button type="primary" ghost>Разместить объявление</Button>
+    </Link>
     <hr />
 
     <Search

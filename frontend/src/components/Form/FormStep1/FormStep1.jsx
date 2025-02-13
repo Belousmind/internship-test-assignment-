@@ -1,7 +1,7 @@
 import { Form, Input, Select, Upload, Button } from "antd";
 import { Controller } from "react-hook-form";
 import { UploadOutlined } from "@ant-design/icons";
-
+import ImageUpload from "../ImageUpload/ImageUpload";
 const { Option } = Select;
 
 const FormStep1 = ({ setFormStep, control, errors, isValid }) => {
@@ -36,11 +36,7 @@ const FormStep1 = ({ setFormStep, control, errors, isValid }) => {
         />
       </Form.Item>
 
-      <Form.Item label="Фото">
-        <Upload beforeUpload={() => false} listType="picture">
-          <Button icon={<UploadOutlined />}>Загрузить</Button>
-        </Upload>
-      </Form.Item>
+      <ImageUpload/>
 
       <Form.Item label="Категория" validateStatus={errors.type ? "error" : ""} help={errors.type?.message}>
         <Controller

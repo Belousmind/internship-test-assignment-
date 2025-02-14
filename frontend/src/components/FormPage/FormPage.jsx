@@ -16,8 +16,7 @@ const FormPage = () => {
   const editingItem = location.state?.item || null;
 
   const { control, handleSubmit, setValue, watch, formState: { errors, isValid } } = useForm({ mode: "onChange" });
-
-  const [imageUrl, setImageUrl] = useState("");
+  
   const [formStep, setFormStep] = useState(1);
   const type = watch("type");
 
@@ -30,17 +29,14 @@ const FormPage = () => {
   }, [editingItem, setValue]);
 
   const onSubmit = async (data) => {
-    try {
-      const jsonData = {
-        ...data,
-        image: imageUrl,
-      };
+    console.log("Отправляемые данные:", data);
   
+    try {
       let response;
       if (editingItem) {
-        response = await axios.put(`http://localhost:3000/items/${editingItem.id}`, jsonData);
+        response = await axios.put(`http://localhost:3000/items/${editingItem.id}`, data);
       } else {
-        response = await axios.post("http://localhost:3000/items", jsonData);
+        response = await axios.post("http://localhost:3000/items", data);
       }
   
       navigate("/list");
@@ -71,7 +67,6 @@ const FormPage = () => {
             control={control} 
             errors={errors} 
             isValid={isValid}
-            setImageUrl={setImageUrl}
          />
         )}
 

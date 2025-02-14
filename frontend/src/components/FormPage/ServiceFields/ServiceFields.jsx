@@ -31,7 +31,6 @@ const ServiceFields = ({ control, errors }) => {
         />
       </Form.Item>
 
-      {/* Стоимость */}
       <Form.Item label="Стоимость (₽)" validateStatus={errors.cost ? "error" : ""} help={errors.cost?.message}>
         <Controller
           name="cost"

@@ -9,7 +9,6 @@ import { Button, Divider, Typography, Skeleton } from 'antd';
 const { Title, Text } = Typography;
 
 const AdPage = () => {
-  
   const { PageId } = useParams();
   const { data: item, loading, error } = useFetchData(`http://localhost:3000/items/${PageId}`);
   const { showDeleteModal, DeleteModal } = useDeleteItem();
@@ -53,11 +52,8 @@ const AdPage = () => {
         {item.type === "Услуги" && <Service item={item}/>}
       </div>
 
-
       <div style={{display: 'flex', justifyContent: 'center', gap: 12, margin: '20px 0 60px 0'}}>
-
         <NavigationButton to="/form" state={{ item }} label="Редактировать" type="primary" ghost />
-
         <Button danger onClick={() => showDeleteModal(item)}>Удалить</Button>
       </div>
       {DeleteModal}

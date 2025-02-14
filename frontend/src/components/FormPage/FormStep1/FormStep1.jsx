@@ -1,9 +1,8 @@
 import { Form, Input, Select, Button } from "antd";
 import { Controller } from "react-hook-form";
-import ImageUpload from "../ImageUpload/ImageUpload";
 const { Option } = Select;
 
-const FormStep1 = ({ setFormStep, control, errors, isValid, setImageUrl }) => {
+const FormStep1 = ({ setFormStep, control, errors, isValid }) => {
   return (
     <>
       <h2>Основная информация</h2>
@@ -35,7 +34,13 @@ const FormStep1 = ({ setFormStep, control, errors, isValid, setImageUrl }) => {
         />
       </Form.Item>
 
-      <ImageUpload setImageUrl={setImageUrl} />
+      <Form.Item label="Ссылка на изображение">
+        <Controller
+          name="image"
+          control={control}
+          render={({ field }) => <Input {...field} placeholder="https://example.com/image.jpg" />}
+        />
+      </Form.Item>
 
       <Form.Item label="Категория" validateStatus={errors.type ? "error" : ""} help={errors.type?.message}>
         <Controller

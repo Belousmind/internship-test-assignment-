@@ -13,21 +13,28 @@ const FormPage = () => {
 
   const location = useLocation();
   const navigate = useNavigate();
+  // Если пользователь редактирует объявление, получаем переданное объявление из state
   const editingItem = location.state?.item || null;
 
+  // Инициализация react-hook-form
   const { control, handleSubmit, setValue, watch, formState: { errors, isValid } } = useForm({ mode: "onChange" });
-  
+
+  // Управление шагами формы
   const [formStep, setFormStep] = useState(1);
   const type = watch("type");
 
   useEffect(() => {
     if (editingItem) {
+      // Если редактируем объявление, заполняем форму старыми значениями
       Object.keys(editingItem).forEach((key) => {
         setValue(key, editingItem[key], { shouldValidate: true });
       });
     }
   }, [editingItem, setValue]);
 
+// Обработчик отправки формы
+// Определяет, создаем новое объявление или редактируем существующее
+// Отправляет данные на сервер
   const onSubmit = async (data) => {
     console.log("Отправляемые данные:", data);
   
@@ -38,7 +45,7 @@ const FormPage = () => {
       } else {
         response = await axios.post("http://localhost:3000/items", data);
       }
-  
+      // После успешной отправки формы перенаправляем пользователя на страницу списка объявлений
       navigate("/list");
   
     } catch (error) {

@@ -4,6 +4,7 @@ import { Card, Skeleton, Tag } from "antd";
 
 const { Meta } = Card;
 
+// Объект, определяющий цвет тэга для каждой категории объявления
 const categoryColors = {
   "Недвижимость": "green",
   "Авто": "blue",
@@ -11,6 +12,7 @@ const categoryColors = {
   "Другое": "default"
 };
 
+// Компонент карточки объявления 
 const ListItem = ({ item }) => {
   const imageExists = !!item.image;
 
@@ -19,6 +21,8 @@ const ListItem = ({ item }) => {
     <Card
       hoverable
       cover={
+        // Если у объявления есть изображение, отображаем его
+        // если изображения нет, отображаем заглушку в виде скелетона
         imageExists ? (
           <img 
             alt={item.name} 
@@ -42,6 +46,7 @@ const ListItem = ({ item }) => {
           {item.type}
         </Tag>
       </p>
+      {/* Кнопка для перехода на страницу объявления */}
       <NavigationButton to={`/list/${item.id}`} label="Открыть" type="primary" ghost />
     </Card>
     </>

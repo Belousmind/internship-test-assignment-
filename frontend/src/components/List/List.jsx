@@ -12,30 +12,36 @@ const { Title } = Typography;
 const { Option } = Select;
 
 const List = () => {
-
+  // Загружаем данные с сервера с помощью кастомного хука и управляем состоянием списка
   const { data: items, loading, error, setData: setItems } = useFetchData("http://localhost:3000/items");
+
+  // Локальное состояние для фильтрации и пагинации
   const [filteredItems, setFilteredItems] = useState([]); 
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 5;
 
+  // Обновляет список отфильтрованных объявлений при изменении загруженных данных
   useEffect(() => {
     if (items) setFilteredItems(items);
   }, [items]);
 
+  // Обрабатывает ввод в строке поиска и фильтрует объявления по названию
   const handleSearch = (value) => {
     setSearchQuery(value.toLowerCase());
     filterItems(value, selectedCategories);
     setCurrentPage(1);
   };
 
+  // Обрабатывает изменение выбранных категорий и фильтрует объявления
   const handleCategoryChange = (categories) => {
     setSelectedCategories(categories);
     filterItems(searchQuery, categories);
     setCurrentPage(1);
   };
 
+  // Фильтрует объявления по названию и категории
   const filterItems = (search, categories) => {
     let filtered = items;
 
@@ -48,10 +54,10 @@ const List = () => {
     if (categories.length > 0) {
       filtered = filtered.filter((item) => categories.includes(item.type));
     }
-
     setFilteredItems(filtered);
   };
 
+  // Вычисляем индексы элементов для текущей страницы
   const indexOfLastItem = currentPage * pageSize;
   const indexOfFirstItem = indexOfLastItem - pageSize;
   const currentItems = filteredItems.slice(indexOfFirstItem, indexOfLastItem);

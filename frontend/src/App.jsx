@@ -5,8 +5,7 @@ import List from './components/List/List'
 import AdPage from './components/AdPage/AdPage';
 
 const App = () => {
-
-
+  
   return (
     <>
       <Router>

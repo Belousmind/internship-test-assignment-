@@ -12,7 +12,7 @@ const categoryColors = {
 };
 
 const ListItem = ({ item }) => {
-  const imageExists = !!item.imageUrl;
+  const imageExists = !!item.image;
 
   return (
     <>
@@ -22,8 +22,8 @@ const ListItem = ({ item }) => {
         imageExists ? (
           <img 
             alt={item.name} 
-            src={item.imageUrl} 
-            style={{ height: "200px", objectFit: "cover" }} 
+            src={item.image} 
+            style={{ height: "200px", objectFit: "cover"}} 
           />
         ) : (
           <Skeleton.Image 

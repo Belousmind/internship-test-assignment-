@@ -3,7 +3,7 @@ import { Controller } from "react-hook-form";
 import ImageUpload from "../ImageUpload/ImageUpload";
 const { Option } = Select;
 
-const FormStep1 = ({ setFormStep, control, errors, isValid, fileList, setFileList  }) => {
+const FormStep1 = ({ setFormStep, control, errors, isValid, setImageUrl }) => {
   return (
     <>
       <h2>Основная информация</h2>
@@ -35,7 +35,7 @@ const FormStep1 = ({ setFormStep, control, errors, isValid, fileList, setFileLis
         />
       </Form.Item>
 
-      {/* <ImageUpload fileList={fileList} setFileList={setFileList}/> */}
+      <ImageUpload setImageUrl={setImageUrl} />
 
       <Form.Item label="Категория" validateStatus={errors.type ? "error" : ""} help={errors.type?.message}>
         <Controller

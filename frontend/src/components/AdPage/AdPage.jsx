@@ -18,6 +18,8 @@ const AdPage = () => {
   if (error) return <Title level={3}>{error}</Title>;
   if (!item) return <Title level={3}>Объявление не найдено</Title>;
 
+  const imageExists = !!item.image;
+
   return (  
     <div>
       <div className="title-container">
@@ -29,10 +31,17 @@ const AdPage = () => {
 
       <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 10, padding: 10, maxWidth: 600, margin: '0 auto'}}>
 
-        <Skeleton.Image 
-          style={{ width: '100%', height: "350px" }}
-          active={false}
-        />
+      { imageExists ? (
+              <img 
+                alt={item.name} 
+                src={item.image} 
+                style={{ height: "350px", objectFit: "cover", borderRadius: "4px" }} 
+                />) : (
+              <Skeleton.Image 
+                style={{ width: "100%", height: "350px" }}
+                active={false}
+              />)
+      }
 
         <Text style={{fontSize: 18}}>{item.description}</Text>
         <Text><strong>Локация:</strong> {item.location}</Text>

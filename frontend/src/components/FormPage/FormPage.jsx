@@ -17,6 +17,7 @@ const FormPage = () => {
 
   const { control, handleSubmit, setValue, watch, formState: { errors, isValid } } = useForm({ mode: "onChange" });
 
+  const [imageUrl, setImageUrl] = useState("");
   const [formStep, setFormStep] = useState(1);
   const type = watch("type");
 
@@ -30,13 +31,20 @@ const FormPage = () => {
 
   const onSubmit = async (data) => {
     try {
+      const jsonData = {
+        ...data,
+        image: imageUrl,
+      };
+  
       let response;
       if (editingItem) {
-        response = await axios.put(`http://localhost:3000/items/${editingItem.id}`, data);
+        response = await axios.put(`http://localhost:3000/items/${editingItem.id}`, jsonData);
       } else {
-        response = await axios.post("http://localhost:3000/items", data);
+        response = await axios.post("http://localhost:3000/items", jsonData);
       }
+  
       navigate("/list");
+  
     } catch (error) {
       message.error(`Ошибка при создании объявления: ${error.message}`);
       console.error("Ошибка при создании объявления:", error.response?.data || error.message);
@@ -63,6 +71,7 @@ const FormPage = () => {
             control={control} 
             errors={errors} 
             isValid={isValid}
+            setImageUrl={setImageUrl}
          />
         )}
 

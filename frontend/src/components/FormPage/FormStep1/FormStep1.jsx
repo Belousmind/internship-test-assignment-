@@ -38,7 +38,18 @@ const FormStep1 = ({ setFormStep, control, errors, isValid }) => {
         <Controller
           name="image"
           control={control}
-          render={({ field }) => <Input {...field} placeholder="https://example.com/image.jpg" />}
+          rules={{
+          pattern: {
+            value: /^(https?:\/\/.*\.(?:png|jpg|jpeg|gif|webp|svg))$/i,
+            message: "Введите корректную ссылку на изображение",
+          },
+        }}
+        render={({ field, fieldState }) => (
+          <>
+        <Input {...field} placeholder="https://example.com/image.jpg" />
+        {fieldState.error && <span style={{ color: "red" }}>{fieldState.error.message}</span>}
+         </>
+        )}
         />
       </Form.Item>
 

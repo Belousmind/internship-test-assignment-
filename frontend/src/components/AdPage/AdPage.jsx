@@ -1,7 +1,7 @@
 import React from 'react';
 import { useParams } from "react-router-dom";
-import useDeleteItem from "../hooks/useDeleteItem";
-import useFetchData from "../hooks/useFetchData";
+import useDeleteItem from "../../hooks/useDeleteItem";
+import useFetchData from "../../hooks/useFetchData";
 import NavigationButton from "../UI/NavigationButton";
 
 import { Button, Divider, Typography, Skeleton } from 'antd';

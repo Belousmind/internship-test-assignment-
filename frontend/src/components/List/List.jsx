@@ -1,7 +1,7 @@
 import "./List.css"
 import React, { useEffect, useState } from "react";
 
-import useFetchData from "../hooks/useFetchData";
+import useFetchData from "../../hooks/useFetchData";
 
 import ListItem from '../ListItem/ListItem';
 import NavigationButton from "../UI/NavigationButton";
